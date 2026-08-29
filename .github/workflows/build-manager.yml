@@ -133,7 +133,7 @@ jobs:
 
   build-manager:
     needs: [generate-key]
-    if: always() && needs.generate-key.result == 'success'
+    if: always() && needs.generate-key.result == 'success' && github.event_name == 'pull_request'
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -209,7 +209,7 @@ jobs:
 
   repack-manager:
     needs: [build-manager, build-ksud, generate-key]
-    if: always() && needs.build-manager.result == 'success' && needs.build-ksud.result == 'success' && needs.generate-key.result == 'success'
+    if: always() && needs.build-manager.result == 'success' && needs.build-ksud.result == 'success' && needs.generate-key.result == 'success' && github.event_name == 'pull_request'
     runs-on: ubuntu-latest
 
     steps:
